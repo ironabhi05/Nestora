@@ -6,14 +6,30 @@ const listingschema = new Schema({
         type: String,
         required: true
     },
-    description: String,
-    price: Number,
-    image: {
+    description: {
         type: String,
-        set: (url) => url === "" ? "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.airbnb.com%2Frooms%2F54072274&psig=AOvVaw0oRGpO-tpHxhD81rOTW-PE&ust=1733155486934000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDbycH5hooDFQAAAAAdAAAAABAJ" : url,
     },
-    location: String,
-    country:String,
-});
+    price: {
+        type: Number
+    },
+    location: {
+        type: String,
+    },
+    country: {
+        type: String,
+    },
+    image: {
+        filename: {
+            type: String,
+        },
+        url: {
+            type: String,
+            default:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fmodern-villa&psig=AOvVaw3G7jyfJanveBcUBhKELx2h&ust=1733206385567000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJCn7Iq3iIoDFQAAAAAdAAAAABAE",
+            set : (v)=>
+                v===""
+            ?"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fmodern-villa&psig=AOvVaw3G7jyfJanveBcUBhKELx2h&ust=1733206385567000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJCn7Iq3iIoDFQAAAAAdAAAAABAE"
+            :v
+        }},
+    });
 const Listing = mongoose.model("Listing", listingschema);
 module.exports = Listing;

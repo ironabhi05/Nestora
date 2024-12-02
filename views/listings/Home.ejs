@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h2>Home</h2>
+    <h4>Here's all Listing items </h4>
+    <form action="http://localhost:2004/listings/new" method="GET">
+        <button>Create New</button>
+    </form>
+    <div class="card">
+        <%for(Listing of allListing){%>
+        <ul>
+            <li><a href="/listings/<%=Listing._id%>"><%=Listing.title%></a></li>
+        </ul>
+       <% }%>
+    </div>
+</body>
+
+</html>
