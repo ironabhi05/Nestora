@@ -1,0 +1,12 @@
+.head{
+    text-align: center;
+}
+.mainCard{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card{
+    margin: auto;
+    min-height: 300px;
+    text-align: justify;
+}
