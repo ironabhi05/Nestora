@@ -24,15 +24,16 @@ app.get("/", (req,res) =>{
     res.send("working");
 });
 
-app.get("/testlisting",async(req,res)=>{
-    let sampleListing = new Listing({
-        title: "Sample Listing",
-        description: "This is a sample listing",
-        price: 1000,
-        location: "Gola Gokarannath (kheri)",
-        countery: "India"
-    })
-    await sampleListing.save();
-    console.log("Saved");
-    res.send("Sucessfull Testing");
-})
+// app.get("/testlisting",async(req,res)=>{
+//     let sampleListing = new Listing({
+//         title: "Taj Hotel",
+//         description: "This is a sample listing",
+//         price: 1000,
+//         image:"",
+//         location: "Lakhimpur Kheri",
+//         countery: "India"
+//     })
+//     await sampleListing.save();
+//     console.log("Saved");
+//     res.send("Sucessfull Testing");
+// })
