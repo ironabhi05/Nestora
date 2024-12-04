@@ -21,16 +21,3 @@ const initDB = async () => {
 };
 
 initDB();
-
-// const initDB = async () => {
-//     let sampleListing = new Listing({
-//         title: "Taj Hotel",
-//         description: "This is a sample listing",
-//         price: 1000,
-//         location: "Lakhimpur Kheri",
-//         countery: "India"
-//     })
-//     await sampleListing.save();
-//     console.log("data saved")
-// }
-// initDB();

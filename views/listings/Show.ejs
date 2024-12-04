@@ -14,7 +14,7 @@
             <%=listing.location%>
         </li>
         <li>
-            <%=listing.image.filename%>
+            <%=listing.image.url%>
         </li>
         <li>
             <%=listing.country%>
@@ -23,4 +23,5 @@
             <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
                 <button>Delete</button>
             </form>
+            <a href="/listings/<%=listing._id%>/edit" class="card-link">Edit</a>
 </body>

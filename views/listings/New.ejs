@@ -1,13 +1,45 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <h1>Create New Post</h1>
-    <form method="POST" action="/listings">
-        <input type="text" name="listing[title]" placeholder="Enter title here... "><br><br>
-        <textarea type="text" name="listing[description]" placeholder="Enter description here... "></textarea><br>
-        <input type="number" name="listing[price]"><br>
-        <input type="text" name="listing[image]" placeholder="Enter image URL here... "><br>
-        <input type="text" name="listing[location]" placeholder="Enter Loaction Here.."><br>
-        <input type="text" name="listing[country]" placeholder="enter country here... "><br>
-        <button>Submit</button>
-    </form>
-</body>
+    <body>
+        <h1 style="text-align: center;">Create New Post</h1><br><br>
+        <form method="POST" action="/listings">
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" name="listing[title]" class="form-control"
+                            placeholder="Enter title here... " />
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea type="text" rows="4" class="form-control" name="listing[description]"
+                            placeholder="Enter description here... "></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL</label>
+                        <input type="text" name="listing[image.url]" class="form-control"
+                            placeholder="Enter Here URL/Link..." />
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="listing[location]" class="form-control"
+                            placeholder="Jakarta, Finix" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3   ">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" name="listing[price]" class="form-control" placeholder="1300/-" />
+                        </div>
+                        <div class=" col-md-8 mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" name="listing[country]"
+                                class="form-control" placeholder="India"/>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+                </div>
+            </div>
+            <br><br>
+        </form>
+    </body>

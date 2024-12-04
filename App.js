@@ -37,8 +37,8 @@ app.get("/", (req, res) => {
 
 //Index Route
 app.get("/listings", async (req, res) => {
-    let allListing = await Listing.find({})
-    res.render("./listings/Home.ejs", { allListing })
+    let alllisting = await Listing.find({})
+    res.render("./listings/Home.ejs", { alllisting })
 });
 
 app.get("/listings/new", (req, res) => {
