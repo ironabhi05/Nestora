@@ -21,10 +21,10 @@ const listingschema = new Schema({
     image: {
         url: {
             type: String,
-            default:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fmodern-villa&psig=AOvVaw3G7jyfJanveBcUBhKELx2h&ust=1733206385567000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJCn7Iq3iIoDFQAAAAAdAAAAABAE",
+            default:"https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300",
             set : (v)=>
                 v===""
-            ?"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fmodern-villa&psig=AOvVaw3G7jyfJanveBcUBhKELx2h&ust=1733206385567000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJCn7Iq3iIoDFQAAAAAdAAAAABAE"
+            ?"https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300"
             :v
         }},
     });

@@ -1,27 +1,42 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <ul>
-        <li>
-            <%=listing.title%>
-        </li>
-        <li>
-            <%=listing.description%>
-        </li>
-        <li>
-            &#8377 <%=listing.price.toLocaleString("en-IN")%>
-        </li>
-        <li>
-            <%=listing.location%>
-        </li>
-        <li>
-            <%=listing.image.url%>
-        </li>
-        <li>
-            <%=listing.country%>
-        </li>
-        <ul><br>
-            <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
-                <button>Delete</button>
-            </form>
-            <a href="/listings/<%=listing._id%>/edit" class="card-link">Edit</a>
-</body>
+
+    <body>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <img src="<%=listing.image.url%>" class="show-img" alt="listing_image">
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-sm-10 col-12 text-body-primary">
+                    <div class="content">
+                        <h3> <b>Title:</b>
+                            <%=listing.title%>
+                        </h3>
+                        <p> <b>Description:</b> <i>
+                                <%=listing.description%>
+                            </i></p>
+                        <p><b>Price:</b> <span class="btext">&#8377 <%=listing.price.toLocaleString("en-IN")%></span>/
+                            Night</p>
+                        <p><b>Location:</b>
+                            <%=listing.location%>, <span class="btext">
+                                    <%=listing.country%>
+                                </span> <i class="fa-solid fa-location-dot"></i>
+                        </p>
+                    </div>
+
+            <div class="row justify-content-start mb-2">
+                <div class="col-md-2 col-sm-1 d-flex justify-content-between">
+                    <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <div class="col-md-2 col-sm-1 d-flex justify-content-between">
+                    <a href="/listings/<%=listing._id%>/edit" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </body>
