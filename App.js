@@ -30,6 +30,17 @@ main().then(() => {
     console.log("Error connecting to MongoDB")
 });
 
+const listingValidate = (req, res, next) => {
+    let { error } = listingValiSchema.validate(req.body);
+    if (error) {
+        let errMsg = error.details.map((el)=> el.message).join(', ');
+        throw new ExpressError(400, errMsg)
+    } else {
+        next();
+    }
+    
+};
+
 app.listen(Port, () => {
     console.log(`Server is running on port  ${Port}`);
 });
@@ -56,11 +67,7 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-app.post("/listings", wrapAsync(async (req, res, next) => {
-    let result = listingValiSchema.validate(req.body);
-    if (result.error) {
-        throw new ExpressError(400, result.error);
-    }
+app.post("/listings", listingValidate, wrapAsync(async (req, res, next) => {
     let newlisting = new Listing(req.body.listing);
     await newlisting.save()
     res.redirect("/listings");
@@ -74,10 +81,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-        throw new ExpressError(400, "Send Valid Data");
-    }
+app.put("/listings/:id", listingValidate, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
