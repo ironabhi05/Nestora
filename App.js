@@ -8,6 +8,7 @@ const engine = require('ejs-mate');
 const methodOverride = require('method-override');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError = require('./utils/ExpressError.js');
+const { listingValiSchema } = require('./Schema.js');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -56,8 +57,9 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 
 //Create Route
 app.post("/listings", wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-        throw new ExpressError(400, "Send Valid Data");
+    let result = listingValiSchema.validate(req.body);
+    if (result.error) {
+        throw new ExpressError(400, result.error);
     }
     let newlisting = new Listing(req.body.listing);
     await newlisting.save()
@@ -94,5 +96,5 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something Went Wrong" } = err;
-    res.render("Error.ejs", { message });
+    res.render("listings/Error.ejs", { message, statusCode });
 })

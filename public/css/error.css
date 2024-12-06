@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2b2e4a, #537895);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.error-code {
+    font-size: 8rem;
+    margin: 0;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff6b6b, #f8e9a1);
+    background-clip: text; 
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.message {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.home-link {
+    font-size: 1.2rem;
+    color: #f8e9a1;
+    text-decoration: none;
+    border: 2px solid #f8e9a1;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #f8e9a1;
+    color: #2b2e4a;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

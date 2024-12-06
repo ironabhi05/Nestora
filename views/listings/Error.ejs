@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Error - Page Not Found</title>
+    <link rel="stylesheet" href="/css/error.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="error-code"><%=statusCode%></h1>
+        <p class="message"><%=message%></p>
+        <a href="/listings" class="home-link">Go Back Home</a>
+    </div>
+    <script>
+      // Add subtle floating animation to the text if needed
+document.querySelector('.error-code').addEventListener('mousemove', () => {
+    document.querySelector('.error-code').style.animation = "bounce 2s infinite";
+});
+    </script>
+</body>
+</html>
