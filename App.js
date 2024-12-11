@@ -67,7 +67,7 @@ app.get("/listings/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-app.post("/listings", listingValidate, wrapAsync(async (req, res, next) => {
+app.post("/listings", wrapAsync(async (req, res, next) => {
     let newlisting = new Listing(req.body.listing);
     await newlisting.save()
     res.redirect("/listings");
