@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
+const Review = require("./models/reviews.js");
 const path = require("path");
 const Port = 2004;
 const engine = require('ejs-mate');
@@ -33,12 +34,12 @@ main().then(() => {
 const listingValidate = (req, res, next) => {
     let { error } = listingValiSchema.validate(req.body);
     if (error) {
-        let errMsg = error.details.map((el)=> el.message).join(', ');
+        let errMsg = error.details.map((el) => el.message).join(', ');
         throw new ExpressError(400, errMsg)
     } else {
         next();
     }
-    
+
 };
 
 app.listen(Port, () => {
@@ -62,7 +63,7 @@ app.get("/listings/new", wrapAsync((req, res) => {
 //Show Route
 app.get("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("./listings/Show.ejs", { listing });
 }));
 
@@ -93,6 +94,16 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings")
 }));
+
+// Post Review
+app.post("/listings/:id/reviews", async (req, res) => {
+    let listing = await Listing.findById(req.params.id)
+    let newReview = new Review(req.body.reviews);
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    res.redirect(`/listings/${listing._id}`);
+});
 
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Hmmm! Can't Reach"));

@@ -4,11 +4,12 @@
         <div class="container">
             <div class="row justify-content-center mt-3">
                 <div class="col-md-8">
-                    <h1><b><%=listing.title%></b></h1>
+                    <h1><b>
+                            <%=listing.title%>
+                        </b></h1>
                     <img src="<%=listing.image.url%>" class="show-img" alt="listing_image">
                 </div>
             </div>
-
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12 text-body-primary">
                     <div class="content">
@@ -23,18 +24,62 @@
                                 </span> <i class="fa-solid fa-location-dot"></i>
                         </p>
                     </div>
-
-            <div class="row justify-content-start mb-2">
-                <div class="col-md-2 col-sm-1 d-flex justify-content-between">
-                    <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-                <div class="col-md-2 col-sm-1 d-flex justify-content-between">
-                    <a href="/listings/<%=listing._id%>/edit" class="btn btn-primary">Edit</a>
+                    <div class="row justify-content-start mb-2">
+                        <div class="col-md-2 col-sm-1 d-flex justify-content-between">
+                            <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                        <div class="col-md-2 col-sm-1 d-flex justify-content-between">
+                            <a href="/listings/<%=listing._id%>/edit" class="btn btn-primary">Edit</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row row justify-content-start mb-2">
+                        <div class="col-md-8 col-sm-10 col-12">
+                            <h4>Leave a review</h4>
+                            <form action="/listings/<%=listing._id%>/reviews" method="POST" novalidate
+                                class="needs-validation">
+                                <div>
+                                    <label for="customRange2" class="form-label">
+                                        Ratting:
+                                    </label>
+                                    <input name="reviews[ratting]" type="range" class="form-range" min="0" max="5"
+                                        id="customRange2">
+                                </div>
+                                <div>
+                                    <label for="comment" class="form-label">Comments:</label>
+                                    <textarea name="reviews[comment]" id="comment" cols="8" rows="3"
+                                        class="form-control" required></textarea>
+                                    <div class="invalid-feedback">Please add some comments for Review.</div>
+                                    <button class="btn btn-outline-primary mt-3">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-        </div>
+            <hr>
+            <div class="row">
+                <h4>All Reviews</h4>
+                <% for(review of listing.reviews){ %>
+                    <div class="col-12 col-lg-6">
+                        <div class="card-review">
+                            <div class="card-body p-4 p-xxl-5">
+                                <div class="bsb-ratings text-warning mb-3" data-bsb-star="<%= review.ratting%>"
+                                    data-bsb-star-off="0"></div>
+                                <blockquote class="bsb-blockquote-icon mb-3">
+                                    <%= review.comment%>
+                                </blockquote>
+                                <figure class="d-flex align-items-center m-0 p-0">
+                                    <figcaption class="ms-3">
+                                        <h4 class="mb-1 h5">Luke Reeves</h4>
+                                        <h5 class="fs-6 text-secondary mb-0">Sales Manager</h5>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
     </body>
