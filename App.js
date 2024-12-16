@@ -95,6 +95,7 @@ app.delete("/listing/:id", wrapAsync(async (req, res) => {
     res.redirect("/listings")
 }));
 
+//Review
 // Post Review
 app.post("/listings/:id/reviews", async (req, res) => {
     let listing = await Listing.findById(req.params.id)
@@ -104,6 +105,15 @@ app.post("/listings/:id/reviews", async (req, res) => {
     await listing.save();
     res.redirect(`/listings/${listing._id}`);
 });
+
+//Delete Review
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`);
+}));
+
 
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Hmmm! Can't Reach"));

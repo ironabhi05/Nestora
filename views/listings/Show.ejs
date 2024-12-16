@@ -2,84 +2,103 @@
 
     <body>
         <div class="container">
+            <!-- Listing Title and Image -->
             <div class="row justify-content-center mt-3">
-                <div class="col-md-8">
-                    <h1><b>
-                            <%=listing.title%>
-                        </b></h1>
-                    <img src="<%=listing.image.url%>" class="show-img" alt="listing_image">
+                <div class="col-md-8 text-center">
+                    <h1 class="fw-bold">
+                        <%= listing.title %>
+                    </h1>
+                    <img src="<%= listing.image.url %>" class="rounded show-img mt-3" alt="Listing Image">
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <!-- Listing Details -->
+            <div class="row justify-content-center mt-4">
                 <div class="col-md-8 col-sm-10 col-12 text-body-primary">
                     <div class="content">
-                        <p> <b>Description:</b> <i>
-                                <%=listing.description%>
+                        <p><b>Description:</b> <i>
+                                <%= listing.description %>
                             </i></p>
-                        <p><b>Price:</b> <span class="btext">&#8377 <%=listing.price.toLocaleString("en-IN")%></span>/
-                            Night</p>
+                        <p><b>Price:</b> <span class="btext">&#8377 <%= listing.price.toLocaleString("en-IN") %></span>
+                            / Night</p>
                         <p><b>Location:</b>
-                            <%=listing.location%>, <span class="btext">
-                                    <%=listing.country%>
-                                </span> <i class="fa-solid fa-location-dot"></i>
+                            <%= listing.location %>,
+                                <span class="btext">
+                                    <%= listing.country %>
+                                </span>
+                                <i class="fa-solid fa-location-dot"></i>
                         </p>
                     </div>
+                    <!-- Edit and Delete Buttons -->
                     <div class="row justify-content-start mb-2">
-                        <div class="col-md-2 col-sm-1 d-flex justify-content-between">
-                            <form method="post" action="/listing/<%=listing._id%>?_method=DELETE">
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                        <div class="col-auto">
+                            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </div>
-                        <div class="col-md-2 col-sm-1 d-flex justify-content-between">
-                            <a href="/listings/<%=listing._id%>/edit" class="btn btn-primary">Edit</a>
+                        <div class="col-auto">
+                            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary btn-sm">Edit</a>
                         </div>
                     </div>
                     <hr>
-                    <div class="row row justify-content-start mb-2">
-                        <div class="col-md-8 col-sm-10 col-12">
-                            <h4>Leave a review</h4>
-                            <form action="/listings/<%=listing._id%>/reviews" method="POST" novalidate
+                    <!-- Leave a Review -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h4>Leave a Review</h4>
+                            <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate
                                 class="needs-validation">
-                                <div>
-                                    <label for="customRange2" class="form-label">
-                                        Ratting:
-                                    </label>
+                                <div class="mb-3">
+                                    <label for="customRange2" class="form-label">Rating:</label>
                                     <input name="reviews[ratting]" type="range" class="form-range" min="0" max="5"
                                         id="customRange2">
                                 </div>
-                                <div>
+                                <div class="mb-3">
                                     <label for="comment" class="form-label">Comments:</label>
                                     <textarea name="reviews[comment]" id="comment" cols="8" rows="3"
                                         class="form-control" required></textarea>
-                                    <div class="invalid-feedback">Please add some comments for Review.</div>
-                                    <button class="btn btn-outline-primary mt-3">Submit</button>
+                                    <div class="invalid-feedback">Please add some comments for your review.</div>
                                 </div>
+                                <button class="btn btn-outline-primary mt-2">Submit</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- All Reviews -->
             <hr>
-            <div class="row">
+            <div class="row mt-4">
                 <h4>All Reviews</h4>
-                <% for(review of listing.reviews){ %>
-                    <div class="col-12 col-lg-6">
-                        <div class="card-review">
-                            <div class="card-body p-4 p-xxl-5">
-                                <div class="bsb-ratings text-warning mb-3" data-bsb-star="<%= review.ratting%>"
+                <% for (let review of listing.reviews) { %>
+                    <div class="col-12 col-lg-6 mb-3">
+                        <div class="card-review  p-3">
+                            <div class="card-body">
+                                <!-- Rating -->
+                                <div class="bsb-ratings text-warning mb-1" data-bsb-star="<%= review.ratting %>"
                                     data-bsb-star-off="0"></div>
-                                <blockquote class="bsb-blockquote-icon mb-3">
-                                    <%= review.comment%>
+                                <blockquote class=" mb-2">
+                                    <i>
+                                        <%= review.comment %>
+                                    </i>
                                 </blockquote>
-                                <figure class="d-flex align-items-center m-0 p-0">
-                                    <figcaption class="ms-3">
-                                        <h4 class="mb-1 h5">Luke Reeves</h4>
-                                        <h5 class="fs-6 text-secondary mb-0">Sales Manager</h5>
-                                    </figcaption>
+                                <figure class="m-0">
+                                    <div class="row align-items-center">
+                                        <figcaption class="col-8">
+                                            <h6 class="mb-1">Luke Reeves</h6>
+                                            <small class="text-muted">Sales Manager</small>
+                                        </figcaption>
+                                        <!-- Delete Review Button -->
+                                        <div class="col-4 text-end">
+                                            <form
+                                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                method="POST">
+                                                <button class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </figure>
                             </div>
                         </div>
                     </div>
-                    <%}%>
+                    <% } %>
             </div>
+        </div>
     </body>
