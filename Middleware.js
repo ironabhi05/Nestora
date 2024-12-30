@@ -1,7 +1,19 @@
+const { session } = require("passport");
+
 module.exports.isLoggedIn = (req, res, next) => {
-    if (!req.isAuthenticated || !req.isAuthenticated()) { // Correct usage of isAuthenticated()
-        req.flash("error", "You must be logged in to create a listing"); // Fix syntax error in req.flash
+    if (!req.isAuthenticated || !req.isAuthenticated()) {
+        req.session.redirectUrl = req.originalUrl;
+        req.flash("error", "You must be logged in to create a listing");
         return res.redirect("/login");
     }
     next();
 };
+
+
+module.exports.saveRedirectUrl = (req, res, next) => {
+    if (req.session.redirectUrl) {
+        res.locals.redirectUrl = req.session.redirectUrl;
+    }
+    next();
+}
+
