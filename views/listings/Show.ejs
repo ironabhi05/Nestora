@@ -15,17 +15,35 @@
             <div class="row justify-content-center mt-4">
                 <div class="col-md-8 col-sm-10 col-12 text-body-primary">
                     <div class="content">
-                        <p><b>Description:</b> <i>
+                        <p>
+                            <b>Owned By: </b>
+                            <i>
+                                <%=listing.owner.username%>
+                            </i>
+                        </p>
+                        <p>
+                            <b>Description:</b>
+                            <i>
                                 <%= listing.description %>
-                            </i></p>
-                        <p><b>Price:</b> <span class="btext">&#8377 <%= listing.price.toLocaleString("en-IN") %></span>
-                            / Night</p>
-                        <p><b>Location:</b>
-                            <%= listing.location %>,
-                                <span class="btext">
-                                    <%= listing.country %>
-                                </span>
-                                <i class="fa-solid fa-location-dot"></i>
+                            </i>
+                        </p>
+                        <p>
+                            <b>Price:</b>
+                            <i>
+                                <span class="btext">&#8377 <%= listing.price.toLocaleString("en-IN") %></span>
+                                / Night
+                            </i>
+                        </p>
+                        <p>
+                            <b>Location:</b>
+                            <i>
+                                <%= listing.location %>,
+                                    <span class="btext">
+                                        <%= listing.country %>
+                                    </span>
+                            </i>
+                            <i class="fa-solid fa-location-dot">
+                            </i>
                         </p>
                     </div>
                     <!-- Edit and Delete Buttons -->

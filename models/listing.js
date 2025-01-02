@@ -16,7 +16,7 @@ const listingschema = new Schema({
     location: {
         type: String,
     },
-    reviews:[
+    reviews: [
         {
             type: Schema.Types.ObjectId,
             ref: "Review",
@@ -28,17 +28,22 @@ const listingschema = new Schema({
     image: {
         url: {
             type: String,
-            default:"https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300",
-            set : (v)=>
-                v===""
-            ?"https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300"
-            :v
-        }},
-    });
+            default: "https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300",
+            set: (v) =>
+                v === ""
+                    ? "https://lh3.googleusercontent.com/VDPp6VUWdRyP3NjQjIcKUJc8M58XLQBRqNcxAJ8ID0KRRCprBl4G-a1VLg6kdHKDJncxmxPnxZo9QGPuHUvCMBAni2VxQ0EjfSvlvQHE=w1000?s=300"
+                    : v
+        }
+    },
+    owner:{
+        type: Schema.Types.ObjectId,
+        ref:"User",
+    }
+});
 
-listingschema.post("findOneAndDelete", async (listing)=>{
-    if(listing){
-        await Review.deleteMany({_id: {$in: listing.reviews}})
+listingschema.post("findOneAndDelete", async (listing) => {
+    if (listing) {
+        await Review.deleteMany({ _id: { $in: listing.reviews } })
     }
 });
 
