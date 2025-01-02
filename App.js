@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const Port = 2004;
-const listing = require('./Routes/listings.js');
+const listing = require('./routes/listings.js');
 const reviews = require('./routes/reviews.js');
 const user = require('./routes/user.js');
 const passport = require('passport');
@@ -51,7 +51,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.user = req.user;
+    res.locals.currUser = req.user;
     next();
 });
 
