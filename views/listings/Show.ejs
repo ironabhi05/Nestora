@@ -68,10 +68,27 @@
                                         <h4>Leave a Review</h4>
                                         <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate
                                             class="needs-validation">
-                                            <div class="mb-3">
-                                                <label for="customRange2" class="form-label">Rating:</label>
-                                                <input name="reviews[rating]" type="range" class="form-range" min="1"
-                                                    max="5" id="customRange2">
+                                            <div>
+                                                <fieldset class="starability-slot">
+                                                    <input type="radio" id="no-rate" class="input-no-rate"
+                                                        name="reviews[rating]" value="1" checked
+                                                        aria-label="No rating." />
+                                                    <input type="radio" id="first-rate1" name="reviews[rating]"
+                                                        value="1" />
+                                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                                    <input type="radio" id="first-rate2" name="reviews[rating]"
+                                                        value="2" />
+                                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                                    <input type="radio" id="first-rate3" name="reviews[rating]"
+                                                        value="3" />
+                                                    <label for="first-rate3" title="Average">3 stars</label>
+                                                    <input type="radio" id="first-rate4" name="reviews[rating]"
+                                                        value="4" />
+                                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                                    <input type="radio" id="first-rate5" name="reviews[rating]"
+                                                        value="5" />
+                                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                                </fieldset>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="comment" class="form-label">Comments:</label>
@@ -96,8 +113,10 @@
                         <div class="card-review  p-3">
                             <div class="card-body">
                                 <!-- Rating -->
-                                <div class="bsb-ratings text-warning mb-1" data-bsb-star="<%= review.rating %>"
-                                    data-bsb-star-off="0"></div>
+                                <h4>@<%=review.author.username%>
+                                </h4>
+                                <p class="starability-result" data-rating="<%= review.rating %>">
+                                </p>
                                 <blockquote class=" mb-2">
                                     <i>
                                         <%= review.comment %>
@@ -106,17 +125,27 @@
                                 <figure class="m-0">
                                     <div class="row align-items-center">
                                         <figcaption class="col-8">
-                                            <h6 class="mb-1">@<%=review.author.username%></h6>
                                             <small class="text-muted">Nestora User</small>
                                         </figcaption>
-                                        <!-- Delete Review Button -->
-                                        <div class="col-4 text-end">
-                                            <form
-                                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                                method="POST">
-                                                <button class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
-                                        </div>
+                                        <%if(currUser && currUser._id.equals(review.author._id)){%>
+                                            <!-- Delete Review Button -->
+                                            <div class="col-4 text-end">
+                                                <form
+                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                    method="POST">
+                                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </div>
+                                            <%} else{%>
+                                                <!-- Like Review Button -->
+                                                <div class="col-4 text-end">
+                                                    <button style="background: none; border: none; cursor: pointer; font-size: 24px; color: grey; 
+                                                        transition: color 0.3s ease;"
+                                                        onclick="this.style.color = this.style.color === 'red' ? 'grey' : 'red';">
+                                                        ❤️
+                                                    </button>
+                                                </div>
+                                                <%}%>
                                     </div>
                                 </figure>
                             </div>
