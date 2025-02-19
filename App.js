@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const path = require("path");
-const Port = 2004;
+const Port =  process.env.PORT || 3000;
 const listing = require('./routes/listings.js');
 const reviews = require('./routes/reviews.js');
 const user = require('./routes/user.js');
@@ -14,6 +15,9 @@ const ExpressError = require('./utils/ExpressError.js');
 const session = require('express-session');
 const flash = require('connect-flash');
 const { connectDB } = require('./Connection.js');
+const multer = require("multer");
+const { storage } = require("./CloudConfig.js");
+const upload = multer({ storage });
 
 //Connetion
 connectDB('mongodb://127.0.0.1:27017/Wonderlust');
